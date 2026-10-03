@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#8dd8ee"><meta name="description" content="A little world made for you."><title>WITHIN — A Little World Made for You</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="desktop-backdrop" aria-hidden="true"><span class="back-cloud cloud-a"></span><span class="back-cloud cloud-b"></span><span class="back-hill hill-a"></span><span class="back-hill hill-b"></span></div>
+  <div class="game-shell" id="gameShell">
+    <div class="ambient-sky" aria-hidden="true"><span class="sky-cloud c1"></span><span class="sky-cloud c2"></span><span class="sky-cloud c3"></span><span class="sun-glow"></span></div>
+    <header class="hud" id="hud" hidden><button class="hud-brand" data-nav="map"><span class="hud-flower">✿</span><span>WITHIN<small>THE LITTLE WORLD</small></span></button><div class="hud-right"><button class="level-pill" data-nav="quest"><span>LV.</span><b data-level>1</b><i><em data-xp></em></i></button><button class="settings-button" data-nav="settings" aria-label="Settings">⚙</button></div></header>
+    <main id="gameScreen" aria-live="polite"></main>
+    <nav class="game-nav" id="gameNav" hidden aria-label="Game menu"><button class="nav-button active" data-nav="map"><span>🗺️</span><small>MAP</small></button><button class="nav-button" data-nav="quest"><span>✦</span><small>QUEST</small><b class="nav-dot" data-quest-dot hidden></b></button><button class="nav-button" data-nav="bag"><span>🎒</span><small>BAG</small><b class="bag-count" data-bag-count>0</b></button></nav>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="modal-root" id="modalRoot"></div>
+  </div>
+  <script src="game-state.js"></script><script src="areas.js"></script><script src="world.js"></script><script src="areas-ui.js"></script><script src="mini-games.js"></script>
+</body></html>
+
+
