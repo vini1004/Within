@@ -1,11 +1,15 @@
 (() => {
   const KEY='within-game-brief-v1';
-  const defaults={entered:false,xp:0,discoveries:[],bag:[],achievements:[],visited:[],gardenFound:[],canvasSaved:false,stories:[],rewatchOpened:false,dummyHp:30,dummyHits:0,dummyWins:0,combo:0,lastCast:0,movementSwipes:0,supportStep:0,supportDone:false,memoryOpened:false,memoryFound:[],sound:true,music:false,reducedMotion:false};
+  const defaults={entered:false,xp:0,discoveries:[],bag:[],achievements:[],visited:[],gardenFound:[],canvasSaved:false,dummyHp:30,dummyHits:0,dummyWins:0,combo:0,lastCast:0,movementSwipes:0,supportStep:0,supportDone:false,memoryOpened:false,memoryFound:[],groveBest:0,groveWins:0,wanderSteps:0,explorerX:48,explorerY:61,sound:true,music:false,reducedMotion:false};
   let state;try{state={...defaults,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch{state={...defaults}}
-  for(const key of ['discoveries','bag','achievements','visited','gardenFound','stories','memoryFound'])if(!Array.isArray(state[key]))state[key]=[];
+  for(const key of ['discoveries','bag','achievements','visited','gardenFound','memoryFound'])if(!Array.isArray(state[key]))state[key]=[];
+  state.bag=state.bag.filter(item=>!String(item.id||'').startsWith('story-')&&item.kind!=='REWATCH VAULT');
+  state.achievements=state.achievements.filter(item=>item.id!=='story-keeper');
+  delete state.stories;delete state.rewatchOpened;
   const xpTotal=()=>Number(state.xp)||0;
   const level=()=>Math.floor(xpTotal()/50)+1;
   const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+  save();
   function toast(message,kind='sparkle'){window.dispatchEvent(new CustomEvent('within-toast',{detail:{message,kind}}))}
   function achievement(id,title,description){if(state.achievements.some(a=>a.id===id))return;state.achievements.push({id,title,description});save();toast(`✦ ${title} · ${description}`,'achievement')}
   function addXP(amount,reason=''){const before=level();state.xp=xpTotal()+amount;save();if(reason)toast(`+${amount} XP · ${reason}`,'reward');if(level()>before){if(level()>=2)achievement('player-one','Player One','The Battlefield has opened.');setTimeout(()=>toast(`LEVEL ${level()} — Something new has awakened.`,'levelup'),80)}window.dispatchEvent(new Event('within-state-change'))}
